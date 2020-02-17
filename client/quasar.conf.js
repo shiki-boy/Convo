@@ -57,7 +57,10 @@ module.exports = function (ctx) {
         'QItem',
         'QItemSection',
         'QItemLabel',
-        'QChatMessage'
+        'QChatMessage',
+        'QFooter',
+        'QInput',
+        'QSpace'
       ],
 
       directives: [
