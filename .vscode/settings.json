@@ -3,6 +3,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
+  "editor.tabSize": 2,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "javascript.format.placeOpenBraceOnNewLineForControlBlocks": false,
   "javascript.format.placeOpenBraceOnNewLineForFunctions": false,
