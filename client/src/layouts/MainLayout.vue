@@ -46,7 +46,7 @@
           />
         </q-toolbar-title>
         <q-space />
-        <q-btn flat round class="bg-teal" icon="send" />
+        <q-btn flat round class="bg-teal" icon="send" @click="SEND_MSG(text)" />
       </q-toolbar>
     </q-footer>
   </q-layout>
@@ -54,6 +54,7 @@
 
 <script>
 import EssentialLink from "components/EssentialLink";
+import { mapActions } from "vuex";
 
 export default {
   name: "MainLayout",
@@ -76,6 +77,9 @@ export default {
       ]
     };
   },
-  
+
+  methods: {
+    ...mapActions("chat", ["SEND_MSG"])
+  }
 };
 </script>
