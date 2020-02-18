@@ -1,2 +1,3 @@
-export function someGetter (/* state */) {
+export const messages = state => {
+  return state.messages
 }

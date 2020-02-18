@@ -15,31 +15,21 @@
 
 <script>
 import ChatMessage from "components/ChatMessage";
+import { mapGetters } from "vuex";
 
 export default {
   name: "PageIndex",
+
   components: {
     ChatMessage
   },
+
+  computed: {
+    ...mapGetters("chat", ["messages"])
+  },
+
   data() {
-    return {
-      messages: [
-        {
-          text: "How are u?",
-          timestamp: "now",
-          user: "me",
-          avatar: "https://cdn.quasar.dev/img/avatar1.jpg",
-          id: "1"
-        },
-        {
-          text: "Fine",
-          timestamp: "now",
-          user: "Jane",
-          avatar: "https://cdn.quasar.dev/img/avatar5.jpg",
-          id: "2"
-        }
-      ]
-    };
+    return {};
   }
 };
 </script>

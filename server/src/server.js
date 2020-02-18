@@ -17,8 +17,10 @@ io.on('connection', (socket) => {
 
   socket.emit('message', 'Welcome!')
 
-  socket.on('sendMessage', (message) => {
-    io.emit('message', message)
+  socket.on('sendMsg', (message) => {
+    console.log('message received ' + message);
+
+    // io.emit('message', message)
   })
 })
 
