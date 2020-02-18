@@ -10,7 +10,7 @@ quasar dev
 
 ## Server setup
 ```
-cd server
+cd server/src
 node server.js
 ```
 
