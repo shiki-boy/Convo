@@ -11,3 +11,18 @@ export const SEND_MSG = ({ commit }, payload) => {
   }
   commit('MUTATE_SEND_MSG', obj)
 }
+
+export const SET_NOTIFICATION = ({ commit }, payload) => {
+  const obj = {
+    show: true,
+    message: payload.message,
+    type: payload.type
+  }
+  console.log('setting');
+  commit('MUTATE_NOTIFICATION', obj)
+
+  setTimeout(() => {
+    console.log('resetting');
+    commit('MUTATE_NOTIFICATION', { show: false })
+  }, 5000)
+}

@@ -30,6 +30,12 @@
       </q-list>
     </q-drawer>
 
+    <notification
+      :show="showNotification"
+      :message="getNotification.message"
+      :type="getNotification.type"
+    />
+
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -54,13 +60,20 @@
 
 <script>
 import EssentialLink from "components/EssentialLink";
-import { mapActions } from "vuex";
+import Notification from "components/Notification";
+
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "MainLayout",
 
   components: {
-    EssentialLink
+    EssentialLink,
+    Notification
+  },
+
+  computed: {
+    ...mapGetters("chat", ["showNotification", "getNotification"])
   },
 
   data() {

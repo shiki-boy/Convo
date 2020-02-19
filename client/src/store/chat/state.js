@@ -15,6 +15,11 @@ export default function () {
         avatar: "https://cdn.quasar.dev/img/avatar5.jpg",
         id: "2"
       }
-    ]
+    ],
+    notification:{
+      show: false,
+      message: "",
+      type: "info"
+    }
   }
 }

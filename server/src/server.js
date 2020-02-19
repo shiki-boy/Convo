@@ -13,14 +13,29 @@ const port = process.env.PORT || 3000
 // app.use(express.static(publicDirectoryPath))
 
 io.on('connection', (socket) => {
+  // io.emit ==> to everyone
+  // socket.emit ==> to that particular client
+  // socket.broadcast ==> to everyone except that client
+
   console.log('New WebSocket connection')
 
   socket.emit('message', 'Welcome!')
+  socket.broadcast.emit('notification', {
+    message: 'User Joined!',
+    type: 'info'
+  })
 
   socket.on('sendMsg', (message) => {
     console.log('message received ' + message);
-
+    // socket.broadcast.emit('notification', 'User joined!')
     // io.emit('message', message)
+  })
+
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('notification', {
+      message: 'User left the chat',
+      type: "info"
+    })
   })
 })
 
