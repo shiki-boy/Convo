@@ -1,0 +1,24 @@
+const mongoose = require('mongoose')
+// const { chatsDBconn } = require('../db/mongoose')
+
+var ObjectId = (id) => mongoose.Types.ObjectId(id);
+
+const RoomSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true
+  },
+  chats: [{
+    type: ObjectId,
+    ref: "chat"
+  }],
+  members: [{
+    type: ObjectId, ref: "User"
+  }]
+}, {
+  timestamps: true
+})
+
+module.exports = mongoose.model("Room", RoomSchema)
