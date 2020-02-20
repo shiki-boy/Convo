@@ -64,7 +64,9 @@ module.exports = function (ctx) {
         'QSpace',
         'QDialog',
         'QCard',
-        'QCardSection'
+        'QCardSection',
+        'QBtn',
+        'QSpinnerFacebook'
       ],
 
       directives: [

@@ -35,6 +35,9 @@ export default {
       type: String,
       required: true
     }
+  },
+  mounted() {
+    this.$socket.emit("join", { t: 1 });
   }
 };
 </script>

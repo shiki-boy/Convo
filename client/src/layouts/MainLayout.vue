@@ -31,7 +31,6 @@
     </q-drawer>
 
     <notification
-      :show="showNotification"
       :message="getNotification.message"
       :type="getNotification.type"
     />
@@ -73,7 +72,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters("chat", ["showNotification", "getNotification"])
+    ...mapGetters("chat", ["getNotification"])
   },
 
   data() {

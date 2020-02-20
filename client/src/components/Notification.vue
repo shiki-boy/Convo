@@ -1,8 +1,7 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
-    <!-- <q-btn label="Click Me" color="primary" @click="seamless = true" /> -->
 
-    <q-dialog v-model="show" seamless position="right">
+    <q-dialog v-model="showNotification" seamless position="right">
       <q-card style="width: 350px">
         <q-card-section class="row items-center no-wrap">
           <div>
@@ -20,15 +19,11 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Notification",
 
   props: {
-    show: {
-      type: Boolean,
-      required: true
-    },
     message: {
       type: String,
       required: true
@@ -37,6 +32,10 @@ export default {
       type: String,
       required: true
     }
+  },
+
+  computed: {
+    ...mapGetters("chat", ["showNotification"])
   },
 
   methods: {
