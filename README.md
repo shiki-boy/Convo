@@ -2,19 +2,16 @@
 
 A Chat App (Express, Vue)
 
-## Install the dependencies
-```bash
-npm install
+## Client setup
 ```
-
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
+cd client
 quasar dev
 ```
 
-### Lint the files
-```bash
-npm run lint
+## Server setup
+```
+cd server/src
+node server.js
 ```
 
 ### Build the app for production
