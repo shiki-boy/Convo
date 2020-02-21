@@ -36,17 +36,15 @@ export default {
   methods: {
     simulateSubmit() {
       this.submitting = true;
-        console.log(123);
-        
-      // Simulating a delay here.
-      // When we are done, we reset "submitting"
-      // Boolean to false to restore the
-      // initial state.
-      setTimeout(() => {
-        // delay simulated, we are done,
-        // now restoring submit to its initial state
-        this.submitting = false;
-      },3000);
+      this.$socket.emit("join", { room_name: this.room_name }, error => {
+        if (error) {
+          this.submitting = false;
+          alert(error);
+        } else {
+          this.submitting = false;
+          this.$router.push({ path: "/chat", query: { name: this.room_name } });
+        }
+      });
     }
   },
 

@@ -15,7 +15,7 @@ const RoomSchema = new mongoose.Schema({
     ref: "chat"
   }],
   members: [{
-    type: ObjectId, ref: "User"
+    type: ObjectId, ref: "user"
   }]
 }, {
   timestamps: true

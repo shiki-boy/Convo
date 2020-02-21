@@ -2,7 +2,8 @@ const path = require('path')
 const http = require('http')
 const express = require('express')
 const socketio = require('socket.io')
-const { chatsDBconn } = require('./db/mongoose')
+require('./db/mongoose')
+const cors = require('cors')
 const Room = require('./models/Room')
 const Chat = require('./models/Chat')
 const User = require('./models/User')
@@ -10,6 +11,8 @@ const User = require('./models/User')
 const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
+
+app.use(cors())
 
 const port = process.env.PORT || 3000
 // const publicDirectoryPath = path.join(__dirname, '../public')
@@ -22,26 +25,32 @@ io.on('connection', (socket) => {
   // socket.broadcast ==> to everyone except that client
 
   console.log('New WebSocket connection')
-  // socket.emit('message', 'Welcome!')
+
+
+  socket.emit('notification', {
+    message: 'Welcome',
+    type: 'info'
+  })
 
   socket.broadcast.emit('notification', {
     message: 'User Joined!',
     type: 'info'
   })
 
-  socket.on('join', async (data) => {
+  socket.on('join', async (data, callback) => {
     console.log('join');
-    // const room = await Room.findOne({ name: data.roomName })
-    //   .populate('members')
-    // console.log(room);
-    // socket.join(data.roomName)
+    const room = await Room.findOne({ name: data.room_name })
+    console.log(room);
+    if (!room) callback('No Such Room')
+
+    console.log('123');
+    socket.join(data.room_name)
+    callback()
   })
 
   socket.on('sendMsg', (message) => {
     console.log('message received ' + message);
-
     socket.broadcast.emit('msgReceived')
-    // io.emit('message', message)
   })
 
   socket.on('disconnect', () => {
@@ -59,6 +68,7 @@ server.listen(port, () => {
 const mongoose = require('mongoose')
 
 app.get('/test', async (req, res) => {
+
   // new Room({
   //   name: "test",
   //   members: [
@@ -67,13 +77,24 @@ app.get('/test', async (req, res) => {
   //   ],
   //   chats: []
   // }).save()
-  Room
-    .find({})
-    .populate('members')
-    .lean()
-    .exec()
-    .then(doc => {
-      res.send(JSON.stringify(doc, null, 4));
-      console.log(JSON.stringify(doc, null, 4));
+
+  // c1 = await Chat.findById("5e4fabbaf2a2c93380846138")
+  // c2 = await Chat.findById("5e4fabbaf2a2c93380846139")
+
+  // const ans = await Room.findByIdAndUpdate("5e4eb0ae5bd52c3d8835987d", {
+  // $push: {
+  // chats: {$each: [c1._id, c2._id]}
+  // }
+  // })
+
+  var ans = await Room.findOne({ name: "test" })
+    .populate({ path: "members", model: User })
+    .populate({
+      path: "chats", model: Chat, options: { sort: { 'createdAt': 1 }, limit: 10 },
+      populate: {
+        path: 'sender', model: User, select: 'username -_id'
+      }
     })
+  console.log(ans)
+  res.send(ans)
 })
